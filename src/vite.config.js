@@ -18,4 +18,17 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    server: {
+        // 1. host: '0.0.0.0' : 컨테이너 내부에서 모든 인터페이스에 바인딩 (외부 연결 허용)
+        // host: '0.0.0.0', 
+        // port: 5173,
+        // 2. hmr 설정을 추가하여 브라우저에게 전달할 주소를 명시합니다.
+        hmr: {
+            // 브라우저가 접속해야 할 주소는 호스트 PC의 localhost입니다.
+            host: 'localhost', 
+            port: 5173,
+            clientPort: 5173,
+            protocol: 'ws',
+        }
+    }
 });

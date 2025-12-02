@@ -97,3 +97,22 @@ services:
 
 volumes:
   postgres_data:
+
+
+# execute 
+# docker-compose up -d postgres php nginx npm
+
+
+# # Laravel + React 개발 환경 설정 순서
+# 초기설정 
+# docker-compose run --rm composer create-project laravel/react-starter-kit src
+
+# # 4. 컨테이너 시작
+# docker-compose build && docker-compose up -d
+
+# # 5. DB 설정 및 마이그레이션
+# # src/.env 파일에서 PostgreSQL 설정
+# docker-compose run --rm artisan migrate
+
+# # 6. NPM 설치
+# docker-compose run --rm npm install
