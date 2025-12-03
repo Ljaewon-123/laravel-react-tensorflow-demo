@@ -75,16 +75,19 @@ services:
   npm:
     image: node:22-alpine
     container_name: laravel_npm
-    # entrypoint: ["npm"]
-    command: sh -c "npm install && npm run dev -- --host"
+    # entrypoint: ["npm"] # npm install && 
+    command: sh -c "npm run dev -- --host"
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html
+    environment:
+      - CHOKIDAR_USEPOLLING=true   # Alpine 환경에서 파일 변경 감지
     ports:
       - "5173:5173" 
     depends_on:
       - php 
       - postgres
+      - nginx
 
   # docker-compose run --rm npm install
   npm_cli:
