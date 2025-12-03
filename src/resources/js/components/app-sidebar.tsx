@@ -13,6 +13,14 @@ const mainNavItems: NavItem[] = [
         url: '/dashboard',
         icon: LayoutGrid,
     },
+    {
+        title: 'Welcome',
+        url: '/welcome'
+    },
+    {
+        title: 'Text Checker',
+        url: '/text-checker'
+    }
 ];
 
 const footerNavItems: NavItem[] = [

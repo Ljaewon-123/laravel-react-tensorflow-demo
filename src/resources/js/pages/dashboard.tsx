@@ -7,14 +7,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
-    },
-    {
-        title: 'Welcome',
-        href: '/welcome'
-    },
-    {
-        title: 'Text Checker',
-        href: '/text-checker'
     }
 ];
 
