@@ -1,0 +1,7 @@
+# AI models
+.ai/*.h5
+*.h5
+*.keras
+*.onnx
+
+__pycache__

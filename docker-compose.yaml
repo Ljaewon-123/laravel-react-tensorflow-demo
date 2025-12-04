@@ -89,6 +89,29 @@ services:
       - postgres
       - nginx
 
+  ai_inference:
+    build:
+      context: .
+      dockerfile: dockerfiles/python/Dockerfile
+    container_name: ai_inference
+    volumes:
+      - ./ai:/app
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "inference:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  # docker-compose run --rm ai_train # => 학습으로 파일생성
+  ai_train:
+    build:
+      context: .
+      dockerfile: dockerfiles/python/Dockerfile
+    container_name: ai_train
+    volumes:
+      - ./ai:/app
+    command: ["python", "train_model.py"]
+
+
+
   # docker-compose run --rm npm install
   npm_cli:
     image: node:22-alpine
