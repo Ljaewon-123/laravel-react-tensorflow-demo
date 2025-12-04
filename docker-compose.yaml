@@ -89,6 +89,19 @@ services:
       - postgres
       - nginx
 
+  ai:
+    build:
+      context: .
+      dockerfile: dockerfiles/python/Dockerfile
+    container_name: ai_python
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai:/app
+    depends_on:
+      - php
+
+
   # docker-compose run --rm npm install
   npm_cli:
     image: node:22-alpine
