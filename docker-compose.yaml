@@ -100,7 +100,7 @@ services:
       - "8000:8000"
     command: ["uvicorn", "inference:app", "--host", "0.0.0.0", "--port", "8000"]
 
-
+  # docker-compose run --rm ai_train # => 학습으로 파일생성
   ai_train:
     build:
       context: .
