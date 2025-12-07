@@ -141,4 +141,4 @@ volumes:
 # docker-compose run --rm artisan migrate
 
 # # 6. NPM 설치
-# docker-compose run --rm npm install
+# docker-compose run --rm npm_cli install
