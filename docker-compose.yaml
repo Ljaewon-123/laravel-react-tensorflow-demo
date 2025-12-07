@@ -128,6 +128,8 @@ volumes:
 # execute 
 # docker-compose up -d postgres php nginx npm
 
+# generate APP_KEY
+# docker compose run --rm composer php artisan key:generate
 
 # # Laravel + React 개발 환경 설정 순서
 # 초기설정 
