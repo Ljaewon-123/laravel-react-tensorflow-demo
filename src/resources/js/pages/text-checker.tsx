@@ -1,21 +1,61 @@
 import { TextareaWithButton } from "@/components/textarea-with-button"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-import { router, usePage } from '@inertiajs/react';
+
+function getCookie(name: string) {
+  return document.cookie
+    .split('; ')
+    .find(row => row.startsWith(name + '='))
+    ?.split('=')[1];
+}
+
+const requestMessage = async (message: string) => {
+  const token = getCookie('XSRF-TOKEN');
+
+  const res = await fetch('/sentiment', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-XSRF-TOKEN': decodeURIComponent(token ?? ''),
+    },
+    body: JSON.stringify({ text: message }),
+  });
+
+  const data = await res.json();
+  return data;
+};
+
 
 export default function MessagePage() {
   const [message, setMessage] = useState("")
   const [result, setResult] = useState<string>("")
 
-  const props = usePage().props
+  const handleSubmit = async () => {
+    if (message.trim() === "") {
+      toast("Incorrect Input Error", {
+        description: "NOT Empty Message",
+        action: {
+          label: "Undo",
+          onClick: () => console.log("Undo"),
+        },
+      })
+      return
+    }
 
-  const handleSubmit = () => {
-    router.post('/sentiment', { 
-      _token: props.csrf_token as string,
-      text: message,
-    });
-  };
+    try {
+      const res = await requestMessage(message)
 
+      if (!res.ok) throw new Error("API Error")
+
+      const data = await res.json()
+      setResult(JSON.stringify(data, null, 2))
+
+      toast.success("감정 분석 성공!")
+    } catch (err) {
+      toast.error("분석에 실패했습니다.")
+    }
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center">
