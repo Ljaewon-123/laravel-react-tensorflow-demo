@@ -1,49 +1,21 @@
 import { TextareaWithButton } from "@/components/textarea-with-button"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-
-const requestMessage = async( message: string) => {
-  const res = await fetch('/api/sentiment', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ message }),
-  });
-
-  const data = await res.json();
-  return data;
-}
+import { router, usePage } from '@inertiajs/react';
 
 export default function MessagePage() {
   const [message, setMessage] = useState("")
   const [result, setResult] = useState<string>("")
 
-  const handleSubmit = async () => {
-    if (message.trim() === "") {
-      toast("Incorrect Input Error", {
-        description: "NOT Empty Message",
-        action: {
-          label: "Undo",
-          onClick: () => console.log("Undo"),
-        },
-      })
-      return
-    }
+  const props = usePage().props
 
-    try {
-      const res = await requestMessage(message)
+  const handleSubmit = () => {
+    router.post('/sentiment', { 
+      _token: props.csrf_token,
+      message,
+    });
+  };
 
-      if (!res.ok) throw new Error("API Error")
-
-      const data = await res.json()
-      setResult(JSON.stringify(data, null, 2))
-
-      toast.success("감정 분석 성공!")
-    } catch (err) {
-      toast.error("분석에 실패했습니다.")
-    }
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center">

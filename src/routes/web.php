@@ -15,6 +15,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('text-checker', function () {
         return Inertia::render('text-checker');
     })->name('text-checker');
+
+    Route::post('/sentiment', [SentimentController::class, 'detect'])->name('detect');
 });
 
 require __DIR__.'/settings.php';
