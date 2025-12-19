@@ -11,8 +11,8 @@ export default function MessagePage() {
 
   const handleSubmit = () => {
     router.post('/sentiment', { 
-      _token: props.csrf_token,
-      message,
+      _token: props.csrf_token as string,
+      text: message,
     });
   };
 
