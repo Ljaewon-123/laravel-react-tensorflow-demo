@@ -1,6 +1,7 @@
 import { TextareaWithButton } from "@/components/textarea-with-button"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
 
 function getCookie(name: string) {
   return document.cookie
@@ -44,21 +45,19 @@ export default function MessagePage() {
     }
 
     try {
-      const res = await requestMessage(message)
-
-      if (!res.ok) throw new Error("API Error")
-
-      const data = await res.json()
+      console.log('fetching!!!')
+      const data = await requestMessage(message)
       setResult(JSON.stringify(data, null, 2))
-
       toast.success("감정 분석 성공!")
-    } catch (err) {
+    } catch {
+      console.log('왜 에러 로그가 없지')
       toast.error("분석에 실패했습니다.")
     }
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center">
+      <Toaster />
       <div className="mt-24 w-full max-w-md px-4">
         <TextareaWithButton
           value={message}

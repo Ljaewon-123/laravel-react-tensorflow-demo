@@ -16,7 +16,11 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('text-checker');
     })->name('text-checker');
 
-    Route::post('/sentiment', [SentimentController::class, 'detect'])->name('detect');
+    // Route::post('/sentiment', [SentimentController::class, 'detect'])->name('detect');
+    Route::post('/sentiment', [SentimentController::class, 'detect']);
+    // Route::post('/sentiment', function () {
+    //   dd('route hit');
+    // });
 });
 
 require __DIR__.'/settings.php';
